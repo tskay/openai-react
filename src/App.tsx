@@ -35,14 +35,14 @@ const App: React.FC = () => {
         <div className="header-bottom">
           <div className="flex-row">
           <nav>
-                    <ul class="menu-text">
+                    <ul className="menu-text">
                         <li>
                             <a href="https://tskay.github.io/allstar/index.html">Home</a>
                         </li>
                         <li>
                             <a href="#">Info
                   <span>
-                    <i class="fa fa-angle-down" aria-hidden="true"></i>
+                    <i className="fa fa-angle-down" aria-hidden="true"></i>
                   </span>
                   <ul>
                     <li>
@@ -66,7 +66,7 @@ const App: React.FC = () => {
                     <li>
                         <a href="#">Learn
                     <span>
-                      <i class="fa fa-angle-down" aria-hidden="true"></i>
+                      <i className="fa fa-angle-down" aria-hidden="true"></i>
                     </span>
                     <ul>
                       <li>
