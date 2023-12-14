@@ -21,7 +21,7 @@ const Chat: React.FC = () => {
   useEffect(() => {
     setMessages([
       {
-        content: "Hi, I'm your personal assistant. How can I help you?",
+        content: "Hi, welcome to the Road Traffic Information Centre. How can I help you?",
         isUser: false,
       },
     ]);
