@@ -34,55 +34,59 @@ const App: React.FC = () => {
         </div>
         <div className="header-bottom">
           <div className="flex-row">
-            <nav>
-              <ul className="menu-text">
-                <li>
-                  <a href="index.html">Home</a>
-                </li>
-                <li>
-                  <a href="#">Info
+          <nav>
+                    <ul class="menu-text">
+                        <li>
+                            <a href="https://tskay.github.io/allstar/index.html">Home</a>
+                        </li>
+                        <li>
+                            <a href="#">Info
+                  <span>
+                    <i class="fa fa-angle-down" aria-hidden="true"></i>
+                  </span>
+                  <ul>
+                    <li>
+                      <a href="https://tskay.github.io/allstar/road-sign.html">Road Sign Malaysia</a>
+                        </li>
+                        <li>
+                            <a href="https://tskay.github.io/allstar/special-day.html">Special Days</a>
+                        </li>
+                        <li>
+                            <a href="https://tskay.github.io/allstar/data.html">bar chart data</a>
+                        </li>
+                    </ul>
+                    </a>
+                    </li>
+                    <li>
+                        <a href="https://tskay.github.io/allstar/research-pillar.html">Research</a>
+                    </li>
+                    <li>
+                        <a href="https://tskay.github.io/allstar/SDG/sdglandpage.html">SDG</a>
+                    </li>
+                    <li>
+                        <a href="#">Learn
                     <span>
-                      <i className="fa fa-angle-down" aria-hidden="true"></i>
+                      <i class="fa fa-angle-down" aria-hidden="true"></i>
                     </span>
                     <ul>
                       <li>
-                        <a href="road-sign.html">Road Sign Malaysia</a>
+                        <a href="https://tskay.github.io/allstar/car_go_brrrrrrrr.html">Drive Simulator</a>
                       </li>
                       <li>
-                        <a href="special-day.html">Special Days</a>
+                          <a href="https://tskay.github.io/allstar/quiz.html">Quiz</a>
                       </li>
                       <li>
-                        <a href="data.html">bar chart data</a>
+                          <a href="https://tskay.github.io/allstar/card_game.html">Card Game</a>
+                      </li>
+                      </ul>
+                      </a>
+                      </li>
+                      <li>
+                        <a href="https://chatbot-euq3.onrender.com/">Chat</a>
                       </li>
                     </ul>
-                  </a>
-                </li>
-                <li>
-                  <a href="research-pillar.html">Research</a>
-                </li>
-                <li>
-                  <a href="SDG/sdglandpage.html">SDG</a>
-                </li>
-                <li>
-                  <a href="#">Learn
-                    <span>
-                      <i className="fa fa-angle-down" aria-hidden="true"></i>
-                    </span>
-                    <ul>
-                      <li>
-                        <a href="car_go_brrrrrrrr.html">Drive Simulator</a>
-                      </li>
-                      <li>
-                        <a href="quiz.html">Quiz</a>
-                      </li>
-                      <li>
-                        <a href="card_game.html">Card Game</a>
-                      </li>
-                    </ul>
-                  </a>
-                </li>
-              </ul>
-            </nav>
+                    
+                </nav>
           </div>
         </div>
       </header>
