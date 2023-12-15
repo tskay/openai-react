@@ -82,6 +82,9 @@ const App: React.FC = () => {
                       </a>
                       </li>
                       <li>
+                        <a href="cta.html">Call to Action</a>
+                      </li>
+                      <li>
                         <a href="https://chatbot-euq3.onrender.com/">Chat</a>
                       </li>
                     </ul>
