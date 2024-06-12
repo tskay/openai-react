@@ -26,7 +26,77 @@
   }
 }
 
+/* Typewriter effect 2 */
+.typewriter h1 {
+  overflow: hidden; /* Ensures the content is not revealed until the animation */
+  border-right: .15em solid orange; /* The typwriter cursor */
+  white-space: nowrap; /* Keeps the content on a single line */
+  margin: 0 auto; /* Gives that scrolling effect as the typing happens */
+  letter-spacing: .15em; /* Adjust as needed */
+  text-shadow: 1px 1px 2px black, 0 0 0px blue, 0 0 0px darkblue;
+  color: white;
+  animation: 
+    typing2 4s steps(25, end),
+    blink-caret .75s step-end infinite;
+}
+
+  /* The typing effect */
+  @keyframes typing2 {
+    from { width: 0 }
+    to { width: 100% }
+  }
+  
+  /* The typewriter cursor effect */
+  @keyframes blink-caret {
+    from, to { border-color: transparent }
+    50% { border-color: orange; }
+  }
+
+  .bg-typetext-area{
+    text-align: center;
+    color: white;
+    max-width:500px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .header-chatbot{
+    z-index: 1;
+    display: block;
+    width: 100%;
+    position: sticky;
+    top: 0;
+    background-color: #1773fc;
+    opacity: 1;
+    transition: opacity 0.3s ease;
+  }
+
+  
+  .header-menu-chatbot{
+    height: 80px;
+    position: relative;
+  }
+
+  .header-chatbot .flex-row-chatbot{
+    height: 100%;
+  }
+  
+  .flex-row-chatbot{
+    display: flex;
+    flex-flow: row nowrap;
+    width: 100%;
+    justify-content: space-evenly;
+    align-items: center;
+  
+  }
+
 /*Header Start*/
+
+.header-chatbot{
+  text-align: center;
+  font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  
+}
 
 .header-duuuurian{
   z-index: 1;
