@@ -35,7 +35,7 @@ const Chat: React.FC = () => {
 
     // Create an assistant
     const assistant = await openai.beta.assistants.create({
-      name: Sustainable Development Goal Consultant",
+      name: "Sustainable Development Goal Consultant",
       instructions: "You are a Sustainable Development Goal Consultant, you role is to promote and provide information of the United Nations Sustainable Development Goals. Restrict your responses to this topic where possible.",
       tools: [{ type: "code_interpreter" }],
       model: "gpt-4o",
