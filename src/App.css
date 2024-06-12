@@ -68,7 +68,7 @@
     top: 0;
     background-color: #1976d2;
     opacity: 1;
-    transition: opacity 0.3s ease;
+    transition: opacity 0.3s ease; 
   }
 
   
