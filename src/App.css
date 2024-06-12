@@ -13,17 +13,6 @@
   }
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
 .App-link {
   color: #61dafb;
 }
@@ -35,4 +24,113 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+header {
+  display: block;
+  margin: 0;
+  padding: 0;
+}
+
+.header-inner {
+  width: 1180px;
+  max-width: 100%;
+  display: flex;
+  justify-content: space-between;
+  margin: 0 auto;
+  height: 100px;
+}
+
+.site-logo {
+  display: flex;
+  float: left;
+  box-sizing: border-box;
+  align-self: center;
+}
+
+.site-logo img {
+  max-width: 150px;
+}
+
+.menu-wrap {
+  display: flex;
+  float: right;
+  align-self: center;
+}
+
+.header-bottom nav {
+  background: white;
+}
+
+.menu-text {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  position: relative;
+}
+
+.menu-text li {
+  display: inline-block;
+  font-size: 16px;
+  background: white;
+  margin: 0;
+}
+
+.menu-text li a {
+  display: block;
+  text-decoration: none;
+  text-transform: uppercase;
+  line-height: 74px;
+  padding-right: 30px;
+  color: #3d4566;
+  font-weight: bold;
+  font-family: 'Helvetica', serif;
+}
+
+.header-bottom nav ul ul {
+  display: none;
+  position: absolute;
+  top: 60px;
+  z-index: 11111;
+  padding: 0;
+  box-shadow: 1px 1px 5px #eaeaea;
+}
+
+.header-bottom nav ul ul li {
+  width: 240px;
+  float: none;
+  display: list-item;
+  position: relative;
+  padding: 10px 20px;
+  list-style-type: none;
+  text-align: left;
+}
+
+.header-bottom nav ul li:hover ul {
+  display: block;
+}
+
+.header-bottom nav .menu-text ul li a {
+  line-height: 1.5;
+  padding: 0;
+  
+}
+
+.header-bottom nav .menu-text ul li:hover {
+  background: #d3d3d3;
+}
+
+.header-bottom {
+  background-color: white;
+  min-height: 60px;
+  border-top: 1px solid #eaeaea;
+  border-bottom: 1px solid #cdcdcd;
+}
+
+.flex-row {
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 1180px;
+  width: 100%;
+  margin: auto;
 }

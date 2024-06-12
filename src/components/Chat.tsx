@@ -21,7 +21,7 @@ const Chat: React.FC = () => {
   useEffect(() => {
     setMessages([
       {
-        content: "Hi, I'm your personal assistant. How can I help you?",
+        content: "Hi, got a burning question? Ask away.",
         isUser: false,
       },
     ]);
@@ -35,10 +35,10 @@ const Chat: React.FC = () => {
 
     // Create an assistant
     const assistant = await openai.beta.assistants.create({
-      name: "Hockey Expert",
-      instructions: "You are a hockey expert. You specialize in helping others learn about hockey.",
+      name: "Expert",
+      instructions: "You are an expert on the United Nations Sustainable Development Goals. You specialize in helping others learn about the SDG goals.",
       tools: [{ type: "code_interpreter" }],
-      model: "gpt-4-1106-preview",
+      model: "gpt-4o",
     });
 
     // Create a thread
