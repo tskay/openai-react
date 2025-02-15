@@ -11,6 +11,8 @@ import {
   InputLabel,
   Select,
   MenuItem,
+  Box,
+  Typography,
 } from "@mui/material";
 import Message from "./Message";
 import OpenAI from "openai";
@@ -34,6 +36,8 @@ const Chat: React.FC = () => {
       "Speak in a friendly, encouraging manner with simple language that invites exploration.",
     "Uncle Roger":
       "Offer humorous, blunt advice with a touch of sarcasm.",
+    "David Attenborough":
+      "Narrate topics with a calm, insightful, and descriptive tone that captures the beauty and complexity of the natural world.",
   };
 
   // Combine the base instructions with the personality-specific style.
@@ -140,26 +144,36 @@ const Chat: React.FC = () => {
 
   return (
     <Container>
-      {/* Personality Selection */}
-      <Grid container spacing={2} sx={{ marginBottom: 2 }}>
-        <Grid item xs={12}>
-          <FormControl fullWidth>
-            <InputLabel id="personality-select-label">
-              Select Personality
-            </InputLabel>
-            <Select
-              labelId="personality-select-label"
-              value={personality}
-              label="Select Personality"
-              onChange={(e) => setPersonality(e.target.value as string)}
-            >
-              <MenuItem value="Carl Sagan">Carl Sagan</MenuItem>
-              <MenuItem value="Dora the Explorer">Dora the Explorer</MenuItem>
-              <MenuItem value="Uncle Roger">Uncle Roger</MenuItem>
-            </Select>
-          </FormControl>
-        </Grid>
-      </Grid>
+      {/* Prominent Personality Selector */}
+      <Box
+        sx={{
+          backgroundColor: "#f5f5f5",
+          p: 2,
+          borderRadius: 2,
+          mt: "10px", // shifts the selector 10px further down
+          mb: 2,
+          boxShadow: 2,
+        }}
+      >
+        <Typography variant="h5" align="center" gutterBottom>
+          Choose a Personality
+        </Typography>
+        <FormControl fullWidth>
+          <InputLabel id="personality-select-label">Select Personality</InputLabel>
+          <Select
+            labelId="personality-select-label"
+            value={personality}
+            label="Select Personality"
+            onChange={(e) => setPersonality(e.target.value as string)}
+            sx={{ fontSize: "1.1rem" }}
+          >
+            <MenuItem value="Carl Sagan">Carl Sagan</MenuItem>
+            <MenuItem value="Dora the Explorer">Dora the Explorer</MenuItem>
+            <MenuItem value="Uncle Roger">Uncle Roger</MenuItem>
+            <MenuItem value="David Attenborough">David Attenborough</MenuItem>
+          </Select>
+        </FormControl>
+      </Box>
 
       {/* Conversation Messages */}
       <Grid container direction="column" spacing={2} paddingBottom={2}>
@@ -194,7 +208,7 @@ const Chat: React.FC = () => {
             size="large"
             sx={{
               backgroundColor: "#6FB3B8", // your custom color
-              "&:hover": { backgroundColor: "#388087" }, // custom hover color
+              "&:hover": { backgroundColor: "#388087" },
             }}
             onClick={handleSendMessage}
             disabled={isWaiting}
