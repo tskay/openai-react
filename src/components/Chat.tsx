@@ -128,7 +128,16 @@ const Chat: React.FC = () => {
           {isWaiting && <LinearProgress color="inherit" />}
         </Grid>
         <Grid item sm={1} xs={3}>
-          <Button variant="contained" size="large" color="primary" onClick={handleSendMessage} disabled={isWaiting}>
+          <Button
+            variant="contained"
+            size="large"
+            sx={{
+              backgroundColor: "#6FB3B8", // your custom color
+              "&:hover": { backgroundColor: "#388087" }, // custom hover color
+            }}
+            onClick={handleSendMessage}
+            disabled={isWaiting}
+          >
             {isWaiting && <CircularProgress color="inherit" />}
             {!isWaiting && <SendIcon fontSize="large" />}
           </Button>

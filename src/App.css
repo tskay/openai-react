@@ -27,7 +27,7 @@
 }
 
 /* Typewriter effect 2 */
-.typewriter h1 {
+.typewriter h2 {
   overflow: hidden; /* Ensures the content is not revealed until the animation */
   border-right: .15em solid orange; /* The typwriter cursor */
   white-space: nowrap; /* Keeps the content on a single line */
@@ -66,7 +66,7 @@
     width: 100%;
     position: sticky;
     top: 0;
-    background-color: #1976d2;
+    background-color: #6FB3B8;
     opacity: 1;
     transition: opacity 0.3s ease; 
   }
