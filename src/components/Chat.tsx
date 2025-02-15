@@ -23,15 +23,14 @@ const Chat: React.FC = () => {
   const [isWaiting, setIsWaiting] = useState<boolean>(false);
   const [messages, setMessages] = useState<Array<MessageDto>>([]);
   const [input, setInput] = useState<string>("");
+  // Set the default personality to one of the available ones.
+  const [personality, setPersonality] = useState<string>("Dora the Explorer");
   const [assistant, setAssistant] = useState<any>(null);
   const [thread, setThread] = useState<any>(null);
   const [openai, setOpenai] = useState<any>(null);
-  const [personality, setPersonality] = useState<string>("Carl Sagan");
 
   // Map personality names to personality-specific instructions
   const personalityPrompts: Record<string, string> = {
-    "Carl Sagan":
-      "Explain topics with cosmic wonder and scientific curiosity, as if you're unveiling the mysteries of the universe.",
     "Dora the Explorer":
       "Speak in a friendly, encouraging manner with simple language that invites exploration.",
     "Uncle Roger":
@@ -146,6 +145,19 @@ const Chat: React.FC = () => {
     }
   };
 
+  // Handler for personality change
+  const handlePersonalityChange = (e: React.ChangeEvent<{ value: unknown }>) => {
+    const selected = e.target.value as string;
+    if (selected === "Surprise Me") {
+      // Choose a random personality from the available ones.
+      const available = Object.keys(personalityPrompts);
+      const randomPersonality = available[Math.floor(Math.random() * available.length)];
+      setPersonality(randomPersonality);
+    } else {
+      setPersonality(selected);
+    }
+  };
+
   return (
     <Container>
       {/* Prominent Personality Selector */}
@@ -160,7 +172,7 @@ const Chat: React.FC = () => {
         }}
       >
         <Typography variant="h5" align="center" gutterBottom>
-          Who would you like to speak to?
+          Choose a Personality
         </Typography>
         <FormControl fullWidth>
           <InputLabel id="personality-select-label">Select Personality</InputLabel>
@@ -168,10 +180,10 @@ const Chat: React.FC = () => {
             labelId="personality-select-label"
             value={personality}
             label="Select Personality"
-            onChange={(e) => setPersonality(e.target.value as string)}
+            onChange={handlePersonalityChange}
             sx={{ fontSize: "1.1rem" }}
           >
-            <MenuItem value="Carl Sagan">Carl Sagan</MenuItem>
+            <MenuItem value="Surprise Me">Surprise Me</MenuItem>
             <MenuItem value="Dora the Explorer">Dora the Explorer</MenuItem>
             <MenuItem value="Uncle Roger">Uncle Roger</MenuItem>
             <MenuItem value="David Attenborough">David Attenborough</MenuItem>
