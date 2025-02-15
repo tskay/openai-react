@@ -1,5 +1,6 @@
 // src/components/Chat.tsx
 import React, { useEffect, useState } from "react";
+import { SelectChangeEvent } from "@mui/material/Select";
 import {
   TextField,
   Button,
@@ -146,8 +147,8 @@ const Chat: React.FC = () => {
   };
 
   // Handler for personality change
-  const handlePersonalityChange = (e: React.ChangeEvent<{ value: unknown }>) => {
-    const selected = e.target.value as string;
+  const handlePersonalityChange = (event: SelectChangeEvent<string>) => {
+    const selected = event.target.value;
     if (selected === "Surprise Me") {
       // Choose a random personality from the available ones.
       const available = Object.keys(personalityPrompts);
