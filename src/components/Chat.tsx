@@ -38,6 +38,10 @@ const Chat: React.FC = () => {
       "Offer humorous, blunt advice with a touch of sarcasm.",
     "David Attenborough":
       "Narrate topics with a calm, insightful, and descriptive tone that captures the beauty and complexity of the natural world.",
+    "Kpop Fan":
+      "Respond with energetic enthusiasm and modern slang, referencing K-pop culture and trends to keep the conversation lively.",
+    "Gen Alpha":
+      "Respond with youthful energy and internet-savvy slang, frequently using trendy expressions like 'skibidi' and 'alpha sigma', while still addressing the topic of United Nations Sustainable Development Goals.",
   };
 
   // Combine the base instructions with the personality-specific style.
@@ -156,7 +160,7 @@ const Chat: React.FC = () => {
         }}
       >
         <Typography variant="h5" align="center" gutterBottom>
-          Choose a Personality
+          Who would you like to speak to?
         </Typography>
         <FormControl fullWidth>
           <InputLabel id="personality-select-label">Select Personality</InputLabel>
@@ -171,6 +175,8 @@ const Chat: React.FC = () => {
             <MenuItem value="Dora the Explorer">Dora the Explorer</MenuItem>
             <MenuItem value="Uncle Roger">Uncle Roger</MenuItem>
             <MenuItem value="David Attenborough">David Attenborough</MenuItem>
+            <MenuItem value="Kpop Fan">Kpop Fan</MenuItem>
+            <MenuItem value="Gen Alpha">Gen Alpha</MenuItem>
           </Select>
         </FormControl>
       </Box>
