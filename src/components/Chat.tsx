@@ -172,7 +172,7 @@ const Chat: React.FC = () => {
         }}
       >
         <Typography variant="h5" align="center" gutterBottom>
-          Choose a Personality
+          Who would you like to speak to?
         </Typography>
         <FormControl fullWidth>
           <InputLabel id="personality-select-label">Select Personality</InputLabel>
