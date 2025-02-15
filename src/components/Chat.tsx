@@ -1,6 +1,5 @@
 // src/components/Chat.tsx
 import React, { useEffect, useState } from "react";
-import { SelectChangeEvent } from "@mui/material/Select";
 import {
   TextField,
   Button,
@@ -14,7 +13,9 @@ import {
   MenuItem,
   Box,
   Typography,
+  Snackbar,
 } from "@mui/material";
+import { SelectChangeEvent } from "@mui/material/Select";
 import Message from "./Message";
 import OpenAI from "openai";
 import { MessageDto } from "../models/MessageDto";
@@ -24,11 +25,12 @@ const Chat: React.FC = () => {
   const [isWaiting, setIsWaiting] = useState<boolean>(false);
   const [messages, setMessages] = useState<Array<MessageDto>>([]);
   const [input, setInput] = useState<string>("");
-  // Set the default personality to one of the available ones.
   const [personality, setPersonality] = useState<string>("Dora the Explorer");
   const [assistant, setAssistant] = useState<any>(null);
   const [thread, setThread] = useState<any>(null);
   const [openai, setOpenai] = useState<any>(null);
+  const [snackbarOpen, setSnackbarOpen] = useState<boolean>(false);
+  const [snackbarMessage, setSnackbarMessage] = useState<string>("");
 
   // Map personality names to personality-specific instructions
   const personalityPrompts: Record<string, string> = {
@@ -91,27 +93,22 @@ const Chat: React.FC = () => {
   };
 
   const handleSendMessage = async () => {
-    // Add the user's message to the conversation.
     messages.push(createNewMessage(input, true));
     setMessages([...messages]);
-    const userInput = input; // capture the current input
+    const userInput = input;
     setInput("");
 
-    // Send the user's message to the thread.
     await openai.beta.threads.messages.create(thread.id, {
       role: "user",
       content: userInput,
     });
 
-    // Run the assistant.
     const run = await openai.beta.threads.runs.create(thread.id, {
       assistant_id: assistant.id,
     });
 
-    // Retrieve the assistant's response.
     let response = await openai.beta.threads.runs.retrieve(thread.id, run.id);
 
-    // Poll until the response is ready.
     while (response.status === "in_progress" || response.status === "queued") {
       console.log("waiting...");
       setIsWaiting(true);
@@ -121,10 +118,8 @@ const Chat: React.FC = () => {
 
     setIsWaiting(false);
 
-    // Get the messages for the thread.
     const messageList = await openai.beta.threads.messages.list(thread.id);
 
-    // Find the last message from the assistant for the current run.
     const lastMessage = messageList.data
       .filter(
         (message: any) =>
@@ -139,21 +134,20 @@ const Chat: React.FC = () => {
     }
   };
 
-  // Detect enter key to send the message.
   const handleKeyPress = (e: React.KeyboardEvent<HTMLDivElement>) => {
     if (e.key === "Enter") {
       handleSendMessage();
     }
   };
 
-  // Handler for personality change
   const handlePersonalityChange = (event: SelectChangeEvent<string>) => {
     const selected = event.target.value;
     if (selected === "Surprise Me") {
-      // Choose a random personality from the available ones.
       const available = Object.keys(personalityPrompts);
       const randomPersonality = available[Math.floor(Math.random() * available.length)];
       setPersonality(randomPersonality);
+      setSnackbarMessage(`Surprise! Your personality has been set to ${randomPersonality}.`);
+      setSnackbarOpen(true);
     } else {
       setPersonality(selected);
     }
@@ -167,7 +161,7 @@ const Chat: React.FC = () => {
           backgroundColor: "#f5f5f5",
           p: 2,
           borderRadius: 2,
-          mt: "10px", // shifts the selector 10px further down
+          mt: "10px",
           mb: 2,
           boxShadow: 2,
         }}
@@ -184,7 +178,7 @@ const Chat: React.FC = () => {
             onChange={handlePersonalityChange}
             sx={{ fontSize: "1.1rem" }}
           >
-            <MenuItem value="Surprise Me">Surprise Me</MenuItem>
+            <MenuItem value="Surprise Me">Surprise Me!</MenuItem>
             <MenuItem value="Dora the Explorer">Dora the Explorer</MenuItem>
             <MenuItem value="Uncle Roger">Uncle Roger</MenuItem>
             <MenuItem value="David Attenborough">David Attenborough</MenuItem>
@@ -226,7 +220,7 @@ const Chat: React.FC = () => {
             variant="contained"
             size="large"
             sx={{
-              backgroundColor: "#6FB3B8", // your custom color
+              backgroundColor: "#6FB3B8",
               "&:hover": { backgroundColor: "#388087" },
             }}
             onClick={handleSendMessage}
@@ -240,6 +234,13 @@ const Chat: React.FC = () => {
           </Button>
         </Grid>
       </Grid>
+
+      <Snackbar
+        open={snackbarOpen}
+        autoHideDuration={3000}
+        onClose={() => setSnackbarOpen(false)}
+        message={snackbarMessage}
+      />
     </Container>
   );
 };
