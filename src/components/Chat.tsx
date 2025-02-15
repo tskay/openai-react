@@ -1,6 +1,17 @@
 // src/components/Chat.tsx
 import React, { useEffect, useState } from "react";
-import { TextField, Button, Container, Grid, LinearProgress, CircularProgress } from "@mui/material";
+import {
+  TextField,
+  Button,
+  Container,
+  Grid,
+  LinearProgress,
+  CircularProgress,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
+} from "@mui/material";
 import Message from "./Message";
 import OpenAI from "openai";
 import { MessageDto } from "../models/MessageDto";
@@ -8,16 +19,34 @@ import SendIcon from "@mui/icons-material/Send";
 
 const Chat: React.FC = () => {
   const [isWaiting, setIsWaiting] = useState<boolean>(false);
-  const [messages, setMessages] = useState<Array<MessageDto>>(new Array<MessageDto>());
+  const [messages, setMessages] = useState<Array<MessageDto>>([]);
   const [input, setInput] = useState<string>("");
   const [assistant, setAssistant] = useState<any>(null);
   const [thread, setThread] = useState<any>(null);
   const [openai, setOpenai] = useState<any>(null);
+  const [personality, setPersonality] = useState<string>("Carl Sagan");
 
+  // Map personality names to personality-specific instructions
+  const personalityPrompts: Record<string, string> = {
+    "Carl Sagan":
+      "Explain topics with cosmic wonder and scientific curiosity, as if you're unveiling the mysteries of the universe.",
+    "Dora the Explorer":
+      "Speak in a friendly, encouraging manner with simple language that invites exploration.",
+    "Uncle Roger":
+      "Offer humorous, blunt advice with a touch of sarcasm.",
+  };
+
+  // Combine the base instructions with the personality-specific style.
+  const getInstructions = () => {
+    return `You are a Sustainable Development Goal Consultant in the style of ${personality}. ${personalityPrompts[personality]} Restrict your responses to the topic of United Nations Sustainable Development Goals where possible.`;
+  };
+
+  // Reinitialize the chatbot whenever the personality changes.
   useEffect(() => {
     initChatBot();
-  }, []);
+  }, [personality]);
 
+  // Reset messages when a new assistant is initialized.
   useEffect(() => {
     setMessages([
       {
@@ -28,52 +57,53 @@ const Chat: React.FC = () => {
   }, [assistant]);
 
   const initChatBot = async () => {
-    const openai = new OpenAI({
+    const openaiInstance = new OpenAI({
       apiKey: process.env.REACT_APP_OPENAI_API_KEY,
       dangerouslyAllowBrowser: true,
     });
 
-    // Create an assistant
-    const assistant = await openai.beta.assistants.create({
+    // Create an assistant with personality-specific instructions.
+    const assistantInstance = await openaiInstance.beta.assistants.create({
       name: "Sustainable Development Goal Consultant",
-      instructions: "You are a Sustainable Development Goal Consultant, you role is to promote and provide information of the United Nations Sustainable Development Goals. Restrict your responses to this topic where possible.",
+      instructions: getInstructions(),
       tools: [{ type: "code_interpreter" }],
       model: "gpt-4o",
     });
 
-    // Create a thread
-    const thread = await openai.beta.threads.create();
+    // Create a new thread for the conversation.
+    const threadInstance = await openaiInstance.beta.threads.create();
 
-    setOpenai(openai);
-    setAssistant(assistant);
-    setThread(thread);
+    setOpenai(openaiInstance);
+    setAssistant(assistantInstance);
+    setThread(threadInstance);
   };
 
   const createNewMessage = (content: string, isUser: boolean) => {
-    const newMessage = new MessageDto(isUser, content);
-    return newMessage;
+    return new MessageDto(isUser, content);
   };
 
   const handleSendMessage = async () => {
+    // Add the user's message to the conversation.
     messages.push(createNewMessage(input, true));
     setMessages([...messages]);
+    const userInput = input; // capture the current input
     setInput("");
 
-    // Send a message to the thread
+    // Send the user's message to the thread.
     await openai.beta.threads.messages.create(thread.id, {
       role: "user",
-      content: input,
+      content: userInput,
     });
 
-    // Run the assistant
+    // Run the assistant.
     const run = await openai.beta.threads.runs.create(thread.id, {
       assistant_id: assistant.id,
     });
 
-    // Create a response
+    // Retrieve the assistant's response.
     let response = await openai.beta.threads.runs.retrieve(thread.id, run.id);
 
-    // Wait for the response to be ready
+    // Poll until the response is ready.
     while (response.status === "in_progress" || response.status === "queued") {
       console.log("waiting...");
       setIsWaiting(true);
@@ -83,22 +113,25 @@ const Chat: React.FC = () => {
 
     setIsWaiting(false);
 
-    // Get the messages for the thread
+    // Get the messages for the thread.
     const messageList = await openai.beta.threads.messages.list(thread.id);
 
-    // Find the last message for the current run
+    // Find the last message from the assistant for the current run.
     const lastMessage = messageList.data
-      .filter((message: any) => message.run_id === run.id && message.role === "assistant")
+      .filter(
+        (message: any) =>
+          message.run_id === run.id && message.role === "assistant"
+      )
       .pop();
 
-    // Print the last message coming from the assistant
     if (lastMessage) {
-      console.log(lastMessage.content[0]["text"].value);
-      setMessages([...messages, createNewMessage(lastMessage.content[0]["text"].value, false)]);
+      const assistantResponse = lastMessage.content[0]["text"].value;
+      console.log(assistantResponse);
+      setMessages([...messages, createNewMessage(assistantResponse, false)]);
     }
   };
 
-  // detect enter key and send message
+  // Detect enter key to send the message.
   const handleKeyPress = (e: React.KeyboardEvent<HTMLDivElement>) => {
     if (e.key === "Enter") {
       handleSendMessage();
@@ -107,14 +140,42 @@ const Chat: React.FC = () => {
 
   return (
     <Container>
+      {/* Personality Selection */}
+      <Grid container spacing={2} sx={{ marginBottom: 2 }}>
+        <Grid item xs={12}>
+          <FormControl fullWidth>
+            <InputLabel id="personality-select-label">
+              Select Personality
+            </InputLabel>
+            <Select
+              labelId="personality-select-label"
+              value={personality}
+              label="Select Personality"
+              onChange={(e) => setPersonality(e.target.value as string)}
+            >
+              <MenuItem value="Carl Sagan">Carl Sagan</MenuItem>
+              <MenuItem value="Dora the Explorer">Dora the Explorer</MenuItem>
+              <MenuItem value="Uncle Roger">Uncle Roger</MenuItem>
+            </Select>
+          </FormControl>
+        </Grid>
+      </Grid>
+
+      {/* Conversation Messages */}
       <Grid container direction="column" spacing={2} paddingBottom={2}>
         {messages.map((message, index) => (
-          <Grid item alignSelf={message.isUser ? "flex-end" : "flex-start"} key={index}>
-            <Message key={index} message={message} />
+          <Grid
+            item
+            alignSelf={message.isUser ? "flex-end" : "flex-start"}
+            key={index}
+          >
+            <Message message={message} />
           </Grid>
         ))}
       </Grid>
-      <Grid container direction="row" paddingBottom={5} justifyContent={"space-between"}>
+
+      {/* Input and Send Button */}
+      <Grid container direction="row" paddingBottom={5} justifyContent="space-between">
         <Grid item sm={11} xs={9}>
           <TextField
             label="Type your message"
@@ -138,8 +199,11 @@ const Chat: React.FC = () => {
             onClick={handleSendMessage}
             disabled={isWaiting}
           >
-            {isWaiting && <CircularProgress color="inherit" />}
-            {!isWaiting && <SendIcon fontSize="large" />}
+            {isWaiting ? (
+              <CircularProgress color="inherit" />
+            ) : (
+              <SendIcon fontSize="large" />
+            )}
           </Button>
         </Grid>
       </Grid>
