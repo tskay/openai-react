@@ -144,9 +144,12 @@ const Chat: React.FC = () => {
     const selected = event.target.value;
     if (selected === "Surprise Me") {
       const available = Object.keys(personalityPrompts);
-      const randomPersonality = available[Math.floor(Math.random() * available.length)];
+      const randomPersonality =
+        available[Math.floor(Math.random() * available.length)];
       setPersonality(randomPersonality);
-      setSnackbarMessage(`Surprise! Your personality has been set to ${randomPersonality}.`);
+      setSnackbarMessage(
+        `Surprise! Your personality has been set to ${randomPersonality}.`
+      );
       setSnackbarOpen(true);
     } else {
       setPersonality(selected);
@@ -167,10 +170,12 @@ const Chat: React.FC = () => {
         }}
       >
         <Typography variant="h5" align="center" gutterBottom>
-          Who would you like to speak to?
+          Choose a Personality
         </Typography>
         <FormControl fullWidth>
-          <InputLabel id="personality-select-label">Select Personality</InputLabel>
+          <InputLabel id="personality-select-label">
+            Select Personality
+          </InputLabel>
           <Select
             labelId="personality-select-label"
             value={personality}
@@ -178,10 +183,12 @@ const Chat: React.FC = () => {
             onChange={handlePersonalityChange}
             sx={{ fontSize: "1.1rem" }}
           >
-            <MenuItem value="Surprise Me">Surprise Me!</MenuItem>
+            <MenuItem value="Surprise Me">Surprise Me</MenuItem>
             <MenuItem value="Dora the Explorer">Dora the Explorer</MenuItem>
             <MenuItem value="Uncle Roger">Uncle Roger</MenuItem>
-            <MenuItem value="David Attenborough">David Attenborough</MenuItem>
+            <MenuItem value="David Attenborough">
+              David Attenborough
+            </MenuItem>
             <MenuItem value="Kpop Fan">Kpop Fan</MenuItem>
             <MenuItem value="Gen Alpha">Gen Alpha</MenuItem>
           </Select>
@@ -202,7 +209,12 @@ const Chat: React.FC = () => {
       </Grid>
 
       {/* Input and Send Button */}
-      <Grid container direction="row" paddingBottom={5} justifyContent="space-between">
+      <Grid
+        container
+        direction="row"
+        paddingBottom={5}
+        justifyContent="space-between"
+      >
         <Grid item sm={11} xs={9}>
           <TextField
             label="Type your message"
@@ -236,6 +248,7 @@ const Chat: React.FC = () => {
       </Grid>
 
       <Snackbar
+        anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
         open={snackbarOpen}
         autoHideDuration={3000}
         onClose={() => setSnackbarOpen(false)}
