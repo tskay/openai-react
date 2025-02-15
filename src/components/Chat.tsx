@@ -170,7 +170,7 @@ const Chat: React.FC = () => {
         }}
       >
         <Typography variant="h5" align="center" gutterBottom>
-          Choose a Personality
+          Who would you like to speak to?
         </Typography>
         <FormControl fullWidth>
           <InputLabel id="personality-select-label">
@@ -183,7 +183,7 @@ const Chat: React.FC = () => {
             onChange={handlePersonalityChange}
             sx={{ fontSize: "1.1rem" }}
           >
-            <MenuItem value="Surprise Me">Surprise Me</MenuItem>
+            <MenuItem value="Surprise Me">Surprise Me!</MenuItem>
             <MenuItem value="Dora the Explorer">Dora the Explorer</MenuItem>
             <MenuItem value="Uncle Roger">Uncle Roger</MenuItem>
             <MenuItem value="David Attenborough">
