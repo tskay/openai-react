@@ -21,6 +21,9 @@ import OpenAI from "openai";
 import { MessageDto } from "../models/MessageDto";
 import SendIcon from "@mui/icons-material/Send";
 
+// Website URL constant - change this to update all links
+const WEBSITE_URL = "https://ygk4tt-5000.csb.app";
+
 const Chat: React.FC = () => {
   const [isWaiting, setIsWaiting] = useState<boolean>(false);
   const [messages, setMessages] = useState<Array<MessageDto>>([]);
@@ -57,14 +60,14 @@ Your mission:
 
 ✨ **Interactive prompts**:  
 When users ask for motivation or inspiration, suggest:
-- "Need a boost? Check out our **Inspirational Quotes** on energy heroes & sustainable journeys here: [Quotes](https://ygk4tt-5000.csb.app/quotes.html)."
-- "Looking for reassurance? Find daily clean‑energy inspiration in our [Quotes](https://ygk4tt-5000.csb.app/quotes.html) section."
+- "Need a boost? Check out our **Inspirational Quotes** on energy heroes & sustainable journeys here: [Quotes](${WEBSITE_URL}/quotes.html)."
+- "Looking for reassurance? Find daily clean‑energy inspiration in our [Quotes](${WEBSITE_URL}/quotes.html) section."
 
 On other topics, invite the user to:
-- "Test your energy IQ with our [Clean Energy Quiz](https://ygk4tt-5000.csb.app/quiz.html)!"
-- "Explore fact vs myth in renewable energy on [Fact vs Myth](https://ygk4tt-5000.csb.app/factvsmyth.html)."
-- "Try our interactive energy challenge game here: [Energy Game](https://ygk4tt-5000.csb.app/game.html)."
-- "Prefer a chat? I'm here—visit: [Chat with CEnergy](https://ygk4tt-5000.csb.app/chatbot)."
+- "Test your energy IQ with our [Clean Energy Quiz](${WEBSITE_URL}/quiz.html)!"
+- "Explore fact vs myth in renewable energy on [Fact vs Myth](${WEBSITE_URL}/factvsmyth.html)."
+- "Try our interactive energy challenge game here: [Energy Game](${WEBSITE_URL}/game.html)."
+- "Prefer a chat? I'm here—visit: [Chat with CEnergy](${WEBSITE_URL}/chatbot)."
 
 💡 **Best practices for using inspirational quotes**:
 - Use quotes to spark curiosity and emotion—short, resonant, themed around energy (e.g., "Energy is the golden thread…") :contentReference[oaicite:1]{index=1}.
