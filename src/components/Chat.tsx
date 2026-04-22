@@ -50,7 +50,7 @@ const Chat: React.FC = () => {
   };
 
   const getInstructions = () => {
-  return `You are an educational chatbot advisor for CEnergy: Powering a Sustainable Future—a site dedicated to UN SDG 7: ensuring access to affordable, reliable, sustainable, modern energy for all. Respond in the style of ${personality}.
+  return `You are an educational chatbot advisor for a website dedicated to the United Nations Sustainable Development Goals (SDGs), promoting awareness, understanding, and action towards a more sustainable and inclusive future. Respond in the style of ${personality}.
 
 ${personalityPrompts[personality]}
 
