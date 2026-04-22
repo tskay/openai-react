@@ -115,7 +115,7 @@ On other topics, invite the user to:
       name: "Sustainable Development Goal Consultant",
       instructions: getInstructions(),
       tools: [{ type: "code_interpreter" }],
-      model: "gpt-5.4-mini",
+      model: "gpt-4o",
     });
 
     // Create a new thread for the conversation.
