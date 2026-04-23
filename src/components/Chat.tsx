@@ -22,7 +22,7 @@ import { MessageDto } from "../models/MessageDto";
 import SendIcon from "@mui/icons-material/Send";
 
 // Website URL constant - change this to update all links
-const WEBSITE_URL = "https://ygk4tt-5000.csb.app";
+const WEBSITE_URL = "https://cjvvx3-5000.csb.app";
 
 const Chat: React.FC = () => {
   const [isWaiting, setIsWaiting] = useState<boolean>(false);
