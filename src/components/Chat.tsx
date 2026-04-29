@@ -20,9 +20,7 @@ import Message from "./Message";
 import OpenAI from "openai";
 import { MessageDto } from "../models/MessageDto";
 import SendIcon from "@mui/icons-material/Send";
-
-// Website URL constant - change this to update all links
-const WEBSITE_URL = "https://cjvvx3-5000.csb.app";
+import { WEBSITE_URL } from "../config";
 
 const Chat: React.FC = () => {
   const [isWaiting, setIsWaiting] = useState<boolean>(false);
@@ -262,6 +260,19 @@ On other topics, invite the user to:
             value={input}
             onChange={(e) => setInput(e.target.value)}
             onKeyDown={handleKeyPress}
+            sx={{
+              "& .MuiOutlinedInput-root": {
+                backgroundColor: "#ffffff",
+                borderRadius: 2,
+                "& fieldset": { borderColor: "rgba(0,0,0,0.35)" },
+                "&:hover fieldset": { borderColor: "rgba(0,0,0,0.6)" },
+                "&.Mui-focused fieldset": { borderColor: "#388087" },
+              },
+              "& .MuiInputBase-input": { color: "#111827" },
+              "& .MuiInputLabel-root": { color: "rgba(17,24,39,0.75)" },
+              "& .MuiInputLabel-root.Mui-focused": { color: "#388087" },
+              "& input::placeholder": { color: "rgba(17,24,39,0.55)" },
+            }}
           />
           {isWaiting && <LinearProgress color="inherit" />}
         </Grid>
