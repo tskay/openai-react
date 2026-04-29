@@ -9,7 +9,7 @@ import {faWarning, faHouse, faTablet, faAngleDown,faRobot} from '@fortawesome/fr
 
 const App: React.FC = () => {
   return (
-    <div className="App">
+    <div className="App app-shell">
         <header className="header-chatbot">
         <div className="header-menu-chatbot">
           <div className="header-chatbot flex-row-chatbot">
@@ -22,7 +22,9 @@ const App: React.FC = () => {
         </div>
       </header>
       <main>
-        <Chat />
+        <div className="chat-panel">
+          <Chat />
+        </div>
       </main>
     </div>
   );
