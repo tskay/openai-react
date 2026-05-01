@@ -1,3 +1,3 @@
 // Central app configuration (single source of truth).
-export const WEBSITE_URL = "https://stackblitz.com/~/github.com/tskay/BugCrusher26_R2";
+export const WEBSITE_URL = "https://bugcrusher26r2-dknw--5000--4c73681d.local-credentialless.webcontainer.io/";
 
